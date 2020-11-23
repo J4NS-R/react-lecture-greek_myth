@@ -7,6 +7,9 @@ function App() {
     <div className="App">
         <h1>Greek Gods</h1>
         <GodsListing/>
+        <div className="footer">
+            <p>This site does not use any cookies.</p>
+        </div>
     </div>
   );
 }
