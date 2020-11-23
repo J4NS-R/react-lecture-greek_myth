@@ -9,12 +9,13 @@ export default class GreekGod extends React.Component {
             name: 'Example God',
             desc: 'God of examples',
             img: 'example.jpg',
-        }
+        },
+        selected: false,
     }
 
     render() {
         return (
-            <div className="god-container">
+            <div className={`god-container ${this.props.selected ? 'god-selected' : ''}`}>
                 <h3>{this.props.greekData.name}</h3>
                 <img src={'/greeks/'+this.props.greekData.img} alt={this.props.greekData.name}/>
                 <p style={{fontSize: '.8em'}}>{this.props.greekData.desc}</p>

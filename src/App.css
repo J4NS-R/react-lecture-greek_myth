@@ -50,3 +50,7 @@
   width: 25vw;
   border: black 1px solid;
 }
+
+.god-selected {
+  background-color: gold;
+}
