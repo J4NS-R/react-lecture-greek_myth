@@ -28,23 +28,26 @@ export default class GreekGod extends React.Component {
     }
 
     async getViews(){
+        const views = await GreekGod.wikiViews(this.props.greekData.name);
+        this.setState({
+            views: views
+        });
+    }
+
+    static async wikiViews(articleTitle){
         // example: https://en.wikipedia.org/w/api.php?action=query&prop=pageviews&titles=Apollo
         const url = new URL('https://en.wikipedia.org/w/api.php');
         url.searchParams.append('action', 'query');
         url.searchParams.append('prop', 'pageviews');
         url.searchParams.append('format', 'json');
         url.searchParams.append('origin', '*');
-        url.searchParams.append('titles', this.props.greekData.name);
-        fetch(url).then(data => data.json()).then(respData => {
-            const pages = respData['query']['pages'];
-            const page = pages[Object.keys(pages)[0]];
-            const days = Object.keys(page['pageviews']);
-            days.sort();
-            const views = page['pageviews'][days[days.length-1]];
-            this.setState({
-                views: views
-            });
-        })
+        url.searchParams.append('titles', articleTitle);
+        const respData = await fetch(url).then(data => data.json())
+        const pages = respData['query']['pages'];
+        const page = pages[Object.keys(pages)[0]];
+        const days = Object.keys(page['pageviews']);
+        days.sort();
+        return page['pageviews'][days[days.length-1]];
     }
 
     render() {
